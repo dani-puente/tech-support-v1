@@ -26,11 +26,14 @@ public class InputReader
      *
      * @return  A String typed by the user.
      */
-    public String getInput()
-    {
-        System.out.print("> ");         // print prompt
-        String inputLine = reader.nextLine();
-
-        return inputLine;
+    public HashSet<String> getInput(){
+        System.out.println("> ");
+        String inputLine = reader.nextLine().trim().toLowerCase();
+        String[] wordArray = inputLine.split(" ");
+        HashSet<String> words = new HashSet<String>();
+        for(String word : wordArray){
+            words.add(word);
+        }
+        return words;
     }
 }
