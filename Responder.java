@@ -43,9 +43,10 @@ public class Responder{
             if(respuestasAsociadas.get(respuestaActual) != null && encontrada == false){
                 aDevolver = respuestasAsociadas.get(respuestaActual);
                 encontrada = true;
-            } else if(encontrada == false){
-                aDevolver = respuestas.get(ran.nextInt(respuestas.size()));
             }
+        }
+        if(encontrada == false){
+            aDevolver = respuestas.get(ran.nextInt(respuestas.size()));
         }
         return aDevolver;
     }
