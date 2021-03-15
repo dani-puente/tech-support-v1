@@ -37,13 +37,15 @@ public class Responder{
      */
     public String generateResponse(HashSet<String> userInput){
         String aDevolver = "";
-        HashSet<String> busqueda = userInput;
-        for(String respuestaActual : busqueda){
-            if(respuestasAsociadas.get(respuestaActual) != null){
+        boolean encontrada = false;
+        HashSet<String> entrada = userInput;
+        for(String respuestaActual : entrada){
+            if(respuestasAsociadas.get(respuestaActual) != null && encontrada == false){
                 aDevolver = respuestasAsociadas.get(respuestaActual);
-            }else{
+                encontrada = true;
+            } else if(encontrada == false){
                 aDevolver = respuestas.get(ran.nextInt(respuestas.size()));
-            }   
+            }
         }
         return aDevolver;
     }
