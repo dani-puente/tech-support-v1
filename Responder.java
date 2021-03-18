@@ -12,11 +12,23 @@ import java.util.HashSet;
 public class Responder{
     private Random ran;
     private ArrayList<String> respuestas;
-    private HashMap<String, String> respuestasAsociadas;
+    private HashMap<HashSet<String>, String> respuestasAsociadas;
     /**
      * Construct a Responder - nothing to do
      */
     public Responder(){
+        HashSet<String> perifericos = new HashSet<>();
+        perifericos.add("raton");
+        perifericos.add("teclado");
+        perifericos.add("impresora");
+        HashSet<String> corriente = new HashSet<>();
+        corriente.add("monitor");
+        corriente.add("alimentacion");
+        corriente.add("arranque");
+        HashSet<String> software = new HashSet<>();
+        software.add("hdd");
+        software.add("usb");
+        software.add("ram");
         ran = new Random();
         respuestas = new ArrayList<>();
         respuestas.add("Eso es facil de resolver");
@@ -25,10 +37,9 @@ public class Responder{
         respuestas.add("Ejecuta ctrl+alt F5");
         respuestas.add("Habra que cambiar el equipo");
         respuestasAsociadas = new HashMap<>();
-        respuestasAsociadas.put("raton", "Conectalo y desconectalo");
-        respuestasAsociadas.put("teclado", "Al ser bluethoot prueba a emparejarlo");
-        respuestasAsociadas.put("monitor", "Comprueba el cable de corriente");
-        respuestasAsociadas.put("hdd", "Habra que pasarle un software para ver su estado");
+        respuestasAsociadas.put(perifericos, "Conectalo y desconectalo");
+        respuestasAsociadas.put(corriente, "Comprueba el cable de corriente");
+        respuestasAsociadas.put(software, "Habra que pasarle un software para ver su estado");
     }
 
     /**
@@ -37,15 +48,9 @@ public class Responder{
      */
     public String generateResponse(HashSet<String> userInput){
         String aDevolver = "";
-        boolean encontrada = false;
-        HashSet<String> entrada = userInput;
-        for(String respuestaActual : entrada){
-            if(respuestasAsociadas.get(respuestaActual) != null && encontrada == false){
-                aDevolver = respuestasAsociadas.get(respuestaActual);
-                encontrada = true;
-            }
-        }
-        if(encontrada == false){
+        if(respuestasAsociadas.get(userInput) != null){
+            aDevolver = respuestasAsociadas.get(userInput);
+        } else{
             aDevolver = respuestas.get(ran.nextInt(respuestas.size()));
         }
         return aDevolver;
